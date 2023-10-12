@@ -6,7 +6,7 @@ export class ScrapAppStack extends Stack {
     super(scope, id, props);
 
     const fn = new aws_lambda.Function(this, "Lambda", {
-      functionName: "scrap-app",
+      functionName: "scrap-app-functions",
       code: aws_lambda.Code.fromAsset("../backend/dist"),
       handler: "index.handler",
       runtime: aws_lambda.Runtime.NODEJS_18_X,
