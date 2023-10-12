@@ -16,6 +16,7 @@ export class ScrapAppStack extends Stack {
     });
 
     const api = new aws_apigateway.RestApi(this, "Api", {
+      restApiName: "scrap-app-api",
       defaultCorsPreflightOptions: {
         allowOrigins: aws_apigateway.Cors.ALL_ORIGINS,
         allowMethods: aws_apigateway.Cors.ALL_METHODS,
