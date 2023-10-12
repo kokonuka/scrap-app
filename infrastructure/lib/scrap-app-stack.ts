@@ -1,4 +1,11 @@
-import { Stack, StackProps, aws_apigateway, aws_lambda } from "aws-cdk-lib";
+import {
+  RemovalPolicy,
+  Stack,
+  StackProps,
+  aws_apigateway,
+  aws_dynamodb,
+  aws_lambda,
+} from "aws-cdk-lib";
 import { Construct } from "constructs";
 
 export class ScrapAppStack extends Stack {
@@ -26,5 +33,29 @@ export class ScrapAppStack extends Stack {
     api.root.addProxy({
       defaultIntegration: new aws_apigateway.LambdaIntegration(fn),
     });
+
+    const scrapsTable = new aws_dynamodb.Table(this, "ScrapsTable", {
+      tableName: "scrap-app-scraps-table",
+      partitionKey: {
+        name: "id",
+        type: aws_dynamodb.AttributeType.STRING,
+      },
+      sortKey: {
+        name: "createdAt",
+        type: aws_dynamodb.AttributeType.STRING,
+      },
+      readCapacity: 5,
+      writeCapacity: 5,
+      pointInTimeRecovery: true,
+      removalPolicy: RemovalPolicy.DESTROY,
+    });
+    scrapsTable.addGlobalSecondaryIndex({
+      indexName: "UserIndex",
+      partitionKey: {
+        name: "userId",
+        type: aws_dynamodb.AttributeType.STRING,
+      },
+    });
+    scrapsTable.grantReadWriteData(fn);
   }
 }
