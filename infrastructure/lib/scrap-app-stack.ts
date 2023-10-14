@@ -35,19 +35,22 @@ export class ScrapAppStack extends Stack {
     });
 
     const scrapsTable = new aws_dynamodb.Table(this, "ScrapsTable", {
-      tableName: "scrap-app-scraps-table",
+      tableName: "scrapp-app-scraps",
       partitionKey: {
         name: "id",
-        type: aws_dynamodb.AttributeType.STRING,
-      },
-      sortKey: {
-        name: "createdAt",
         type: aws_dynamodb.AttributeType.STRING,
       },
       readCapacity: 5,
       writeCapacity: 5,
       pointInTimeRecovery: true,
       removalPolicy: RemovalPolicy.DESTROY,
+    });
+    scrapsTable.addGlobalSecondaryIndex({
+      indexName: "CreatedAtIndex",
+      partitionKey: {
+        name: "createdAt",
+        type: aws_dynamodb.AttributeType.STRING,
+      },
     });
     scrapsTable.addGlobalSecondaryIndex({
       indexName: "UserIndex",
