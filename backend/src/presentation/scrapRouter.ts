@@ -64,13 +64,17 @@ scrapRouter.get("/:id", async (req, res) => {
 });
 
 scrapRouter.post("/", async (req, res) => {
+  const { title } = req.body;
+
   const uniqueId = uuidv4();
 
   const params: PutCommandInput = {
     TableName: TABLE_NAME,
     Item: {
       id: uniqueId,
+      title: title,
       createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
       scrap: "scrap",
       items: [],
     },
