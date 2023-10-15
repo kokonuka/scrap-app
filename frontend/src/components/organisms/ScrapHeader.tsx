@@ -3,6 +3,8 @@ import { Box } from "@chakra-ui/react";
 import { Scrap } from "../molecules/ScrapRow";
 import { formatDate } from "@/lib/dataUtil";
 import { UpdateScrapForm } from "./forms/UpdateScrap";
+import { FaRegComment } from "react-icons/fa";
+import { BiPencil } from "react-icons/bi";
 
 type Props = {
   scrap: Scrap | null;
@@ -20,9 +22,11 @@ export const ScrapHeader: React.FC<Props> = ({ scrap, setScrap }) => {
     <Box>
       <Box fontSize="13px" color="#65717b" lineHeight="1.4" display="flex">
         <Box>{scrap && formatDate(scrap.updatedAt)}</Box>
-        <Box ml="0.7rem">{scrap && scrap.items.length}</Box>
+        <Box ml="0.7rem" display="flex" alignItems="center" gap="1">
+          <FaRegComment />
+          {scrap && scrap.items.length}
+        </Box>
       </Box>
-      {/* フォームに変換 */}
       {!isEdit ? (
         <Box
           as="h1"
@@ -31,9 +35,22 @@ export const ScrapHeader: React.FC<Props> = ({ scrap, setScrap }) => {
           fontSize="1.7rem"
           fontWeight="bold"
           lineHeight="1.5"
+          display="flex"
+          alignItems="center"
+          gap="2"
         >
           {scrap && scrap.title}
-          <button onClick={handleEdit}>ボタン</button>
+          <Box
+            as="button"
+            onClick={handleEdit}
+            color="#8f9faa"
+            fontSize="22px"
+            _hover={{
+              opacity: "0.7",
+            }}
+          >
+            <BiPencil />
+          </Box>
         </Box>
       ) : (
         <UpdateScrapForm

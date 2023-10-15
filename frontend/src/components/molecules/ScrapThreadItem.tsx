@@ -4,6 +4,8 @@ import { deleteScrapThreadItem } from "@/lib/requests/scrapThreadItems/delete";
 import { getScrapThreadItems } from "@/lib/requests/scrapThreadItems/get";
 import { UpdateScrapThreadItemForm } from "../organisms/forms/UpdateScrapThreadItem";
 import { formatDate } from "@/lib/dataUtil";
+import { BiPencil } from "react-icons/bi";
+import { FaTrash } from "react-icons/fa";
 
 export type formInputs = {
   comment: string;
@@ -51,8 +53,28 @@ export const ScrapThreadItem: React.FC<Props> = ({
           {formatDate(scrapThreadItem.updatedAt)}
         </Box>
         <Box display="flex" gap="3">
-          <Button onClick={handleEdit}>編集</Button>
-          <Button onClick={handleDelete}>削除</Button>
+          <Box
+            as="button"
+            onClick={handleEdit}
+            color="gray.700"
+            fontSize="22px"
+            _hover={{
+              opacity: "0.7",
+            }}
+          >
+            <BiPencil />
+          </Box>
+
+          <Box
+            as="button"
+            onClick={handleDelete}
+            color="gray.700"
+            _hover={{
+              opacity: "0.7",
+            }}
+          >
+            <FaTrash />
+          </Box>
         </Box>
       </Box>
       {!isEdit ? (

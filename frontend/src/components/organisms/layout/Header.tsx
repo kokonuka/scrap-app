@@ -1,6 +1,7 @@
 import React from "react";
 import NextLink from "next/link";
 import { Box, Container, Link } from "@chakra-ui/react";
+import { FaBoxes } from "react-icons/fa";
 
 type Props = {};
 
@@ -25,11 +26,15 @@ export const Header: React.FC<Props> = () => {
           color="#000000d1"
           fontSize="1.1rem"
           fontWeight="bold"
+          display="flex"
+          alignItems="center"
+          gap="2"
           _hover={{
             opacity: "0.7",
           }}
         >
-          ホーム
+          <FaBoxes />
+          SCRAPS
         </Link>
       </Container>
     </Box>

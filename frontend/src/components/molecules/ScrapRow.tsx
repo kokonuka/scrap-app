@@ -4,6 +4,7 @@ import { formatDate } from "@/lib/dataUtil";
 import { ScrapThreadItem } from "./ScrapThreadItem";
 import { deleteScrap } from "@/lib/requests/deleteScrap";
 import { getScraps } from "@/lib/requests/getScraps";
+import { FaRegComment, FaTrash } from "react-icons/fa";
 
 type Props = {
   scrap: Scrap;
@@ -49,14 +50,32 @@ export const ScrapRow: React.FC<Props> = ({ scrap, setScraps }) => {
           </Link>
         </Box>
         <Box ml="15px">
-          <Button onClick={handleDelete}>削除</Button>
+          <Box
+            as="button"
+            onClick={handleDelete}
+            color="gray.700"
+            _hover={{
+              opacity: "0.7",
+            }}
+          >
+            <FaTrash />
+          </Box>
         </Box>
       </Box>
       <Box mt="0.5em" display="flex" gap="0.7rem">
         <Box color="#65717b" fontSize="0.78rem" lineHeight="1.6">
           {formatDate(scrap.updatedAt)}
         </Box>
-        <Box color="#65717b" fontSize="0.78rem" lineHeight="1.6">
+
+        <Box
+          color="#65717b"
+          fontSize="0.78rem"
+          lineHeight="1.6"
+          display="flex"
+          alignItems="center"
+          gap="1"
+        >
+          <FaRegComment />
           {scrap.items.length}
         </Box>
       </Box>

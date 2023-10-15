@@ -69,14 +69,19 @@ export const UpdateScrapThreadItemForm: React.FC<Props> = ({
         </FormErrorMessage>
       </FormControl>
       <Box pt="15px" display="flex" justifyContent="flex-end" gap="3">
-        <Button
+        <Box
+          as="button"
           onClick={handleCancel}
-          colorScheme="blue"
-          isLoading={isSubmitting}
           type="submit"
+          p="0.5em 1em"
+          bg="transparent"
+          color="#8f9faa"
+          fontSize="0.9rem"
+          fontWeight="600"
+          whiteSpace="nowrap"
         >
           キャンセル
-        </Button>
+        </Box>
         <Button colorScheme="blue" isLoading={isSubmitting} type="submit">
           更新する
         </Button>

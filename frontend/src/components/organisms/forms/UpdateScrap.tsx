@@ -68,16 +68,36 @@ export const UpdateScrapForm: React.FC<Props> = ({
       </FormControl>
       <Box display="flex" justifyContent="flex-end" gap="3">
         <Button
-          onClick={handleCancel}
           colorScheme="blue"
           isLoading={isSubmitting}
           type="submit"
+          p="0.5em 1em"
+          color="#000000d1"
+          fontSize="0.8rem"
+          lineHeight="1.4"
+          bg="#fff"
+          border="1px"
+          borderColor="#e4edf4"
+          borderRadius="0.6em"
+          boxShadow="0 2px 4px -2px #21253840"
+          _hover={{
+            background: "#f5fbff",
+          }}
+        >
+          保存
+        </Button>
+        <Box
+          as="button"
+          onClick={handleCancel}
+          type="submit"
+          bg="transparent"
+          color="#65717b"
+          fontSize="0.8rem"
+          fontWeight="normal"
+          whiteSpace="nowrap"
         >
           キャンセル
-        </Button>
-        <Button colorScheme="blue" isLoading={isSubmitting} type="submit">
-          更新する
-        </Button>
+        </Box>
       </Box>
     </Box>
   );
