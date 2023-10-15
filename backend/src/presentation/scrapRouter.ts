@@ -8,6 +8,8 @@ import {
   GetCommandInput,
   PutCommandInput,
   DeleteCommandInput,
+  UpdateCommandInput,
+  UpdateCommand,
 } from "@aws-sdk/lib-dynamodb";
 import { v4 as uuidv4 } from "uuid";
 import { TABLE_NAME } from "../config";
