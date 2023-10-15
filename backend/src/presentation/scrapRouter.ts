@@ -88,6 +88,35 @@ scrapRouter.post("/", async (req, res) => {
   }
 });
 
+scrapRouter.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { title } = req.body;
+
+  const params: UpdateCommandInput = {
+    TableName: TABLE_NAME,
+    Key: { id: id },
+    UpdateExpression: "SET #title = :newTitle",
+    ExpressionAttributeNames: {
+      "#title": "title",
+    },
+    ExpressionAttributeValues: {
+      ":newTitle": title,
+    },
+  };
+
+  try {
+    const command = new UpdateCommand(params);
+    const response = await documentClient.send(command);
+    console.log("SUCCESS (update scrap title):", response);
+
+    return res.status(200).json(response);
+  } catch (err) {
+    console.log("ERROR:", err);
+
+    return res.status(400).json({ message: err });
+  }
+});
+
 scrapRouter.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
