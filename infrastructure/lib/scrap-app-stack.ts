@@ -35,7 +35,7 @@ export class ScrapAppStack extends Stack {
     });
 
     const scrapsTable = new aws_dynamodb.Table(this, "ScrapsTable", {
-      tableName: "scrapp-app-scraps",
+      tableName: "scrap-app-scraps",
       partitionKey: {
         name: "id",
         type: aws_dynamodb.AttributeType.STRING,
@@ -48,6 +48,10 @@ export class ScrapAppStack extends Stack {
     scrapsTable.addGlobalSecondaryIndex({
       indexName: "CreatedAtIndex",
       partitionKey: {
+        name: "scrap",
+        type: aws_dynamodb.AttributeType.STRING,
+      },
+      sortKey: {
         name: "createdAt",
         type: aws_dynamodb.AttributeType.STRING,
       },
