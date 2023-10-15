@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import {
@@ -10,16 +11,19 @@ import {
 import { ScrapThreadItem } from "@/components/molecules/ScrapThreadItem";
 import { postScrapThreadItem } from "@/lib/requests/scrapThreadItems/post";
 import { getScrapThreadItems } from "@/lib/requests/scrapThreadItems/get";
+import { Scrap } from "@/components/molecules/ScrapRow";
 
 export type formInputs = {
   comment: string;
 };
 
 type Props = {
+  setScrap: Dispatch<SetStateAction<Scrap | null>>;
   setScrapThreadItems: React.Dispatch<React.SetStateAction<ScrapThreadItem[]>>;
 };
 
 export const CreateScrapThreadItemForm: React.FC<Props> = ({
+  setScrap,
   setScrapThreadItems,
 }) => {
   const router = useRouter();
@@ -36,6 +40,13 @@ export const CreateScrapThreadItemForm: React.FC<Props> = ({
     try {
       await postScrapThreadItem(id as string, data);
       const newScrapThreadItems = await getScrapThreadItems(id as string);
+      setScrap((prevScrap) => {
+        if (!prevScrap) return prevScrap;
+        return {
+          ...prevScrap,
+          items: newScrapThreadItems,
+        };
+      });
       setScrapThreadItems(newScrapThreadItems);
       reset();
     } catch (error) {

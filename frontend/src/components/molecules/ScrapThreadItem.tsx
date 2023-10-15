@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { Box, Button } from "@chakra-ui/react";
 import { deleteScrapThreadItem } from "@/lib/requests/scrapThreadItems/delete";
 import { getScrapThreadItems } from "@/lib/requests/scrapThreadItems/get";
@@ -6,12 +6,14 @@ import { UpdateScrapThreadItemForm } from "../organisms/forms/UpdateScrapThreadI
 import { formatDate } from "@/lib/dataUtil";
 import { BiPencil } from "react-icons/bi";
 import { FaTrash } from "react-icons/fa";
+import { Scrap } from "./ScrapRow";
 
 export type formInputs = {
   comment: string;
 };
 
 type Props = {
+  setScrap: Dispatch<SetStateAction<Scrap | null>>;
   scrapId: string | string[] | undefined;
   scrapThreadItem: ScrapThreadItem;
   setScrapThreadItems: React.Dispatch<React.SetStateAction<ScrapThreadItem[]>>;
@@ -26,9 +28,10 @@ export type ScrapThreadItem = {
 };
 
 export const ScrapThreadItem: React.FC<Props> = ({
+  setScrap,
+  scrapId,
   scrapThreadItem,
   setScrapThreadItems,
-  scrapId,
 }) => {
   const [isEdit, setIsEdit] = useState(false);
 
@@ -40,6 +43,13 @@ export const ScrapThreadItem: React.FC<Props> = ({
     try {
       await deleteScrapThreadItem(scrapId as string, scrapThreadItem.id);
       const newScrapThreadItems = await getScrapThreadItems(scrapId as string);
+      setScrap((prevScrap) => {
+        if (!prevScrap) return prevScrap;
+        return {
+          ...prevScrap,
+          items: newScrapThreadItems,
+        };
+      });
       setScrapThreadItems(newScrapThreadItems);
     } catch (error) {
       console.error("削除およびデータ取得に失敗しました:", error);

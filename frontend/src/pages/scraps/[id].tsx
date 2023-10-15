@@ -20,12 +20,14 @@ export default function ScrapPage() {
       <ScrapThreadLayout>
         <ScrapHeader scrap={scrap} setScrap={setScrap} />
         <ScrapThread
+          setScrap={setScrap}
+          scrapId={id}
           scrapThreadItems={scrapThreadItems}
           setScrapThreadItems={setScrapThreadItems}
-          scrapId={id}
         />
         <Box mt="5">
           <CreateScrapThreadItemForm
+            setScrap={setScrap}
             setScrapThreadItems={setScrapThreadItems}
           />
         </Box>
