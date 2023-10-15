@@ -8,6 +8,7 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { postScrap } from "@/lib/requests/postScrap";
+import { getScraps } from "@/lib/requests/getScraps";
 
 export type formInputs = {
   title: string;
@@ -24,8 +25,9 @@ export const CreateScrapForm: React.FC = () => {
   const onSubmit = handleSubmit(async (data) => {
     try {
       await postScrap(data);
-      // Todo: スクラップ一覧を取得して最新のスクラップのスレッドに移動
-      router.push("/");
+      const scraps = await getScraps();
+      const lastScrap = scraps[scraps.length - 1];
+      router.push(`/scraps/${lastScrap.id}`);
     } catch (error) {
       console.error("スクラップの作成に失敗しました:", error);
     }
