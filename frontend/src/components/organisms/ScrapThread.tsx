@@ -4,6 +4,7 @@ import { Scrap } from "../molecules/ScrapRow";
 import { Dispatch, SetStateAction } from "react";
 
 type Props = {
+  scrap: Scrap | null;
   setScrap: Dispatch<SetStateAction<Scrap | null>>;
   scrapId: string | string[] | undefined;
   scrapThreadItems: ScrapThreadItem[];
@@ -11,6 +12,7 @@ type Props = {
 };
 
 export const ScrapThread: React.FC<Props> = ({
+  scrap,
   setScrap,
   scrapId,
   scrapThreadItems,
@@ -21,8 +23,10 @@ export const ScrapThread: React.FC<Props> = ({
       {scrapThreadItems
         ? scrapThreadItems.map((scrapThreadItem) => (
             <ScrapThreadItem
+              scrap={scrap}
               setScrap={setScrap}
               scrapId={scrapId}
+              scrapThreadItems={scrapThreadItems}
               scrapThreadItem={scrapThreadItem}
               setScrapThreadItems={setScrapThreadItems}
               key={scrapThreadItem.id}

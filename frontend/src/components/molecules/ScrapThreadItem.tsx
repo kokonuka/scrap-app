@@ -5,16 +5,20 @@ import { getScrapThreadItems } from "@/lib/requests/scrapThreadItems/get";
 import { UpdateScrapThreadItemForm } from "../organisms/forms/UpdateScrapThreadItem";
 import { formatDate } from "@/lib/dataUtil";
 import { BiPencil } from "react-icons/bi";
-import { FaTrash } from "react-icons/fa";
+import { FaChevronDown, FaChevronUp, FaTrash } from "react-icons/fa";
 import { Scrap } from "./ScrapRow";
+import { moveUpScrapThreadItem } from "@/lib/requests/scrapThreadItems/up";
+import { moveDownScrapThreadItem } from "@/lib/requests/scrapThreadItems/down";
 
 export type formInputs = {
   comment: string;
 };
 
 type Props = {
+  scrap: Scrap | null;
   setScrap: Dispatch<SetStateAction<Scrap | null>>;
   scrapId: string | string[] | undefined;
+  scrapThreadItems: ScrapThreadItem[];
   scrapThreadItem: ScrapThreadItem;
   setScrapThreadItems: React.Dispatch<React.SetStateAction<ScrapThreadItem[]>>;
 };
@@ -28,8 +32,10 @@ export type ScrapThreadItem = {
 };
 
 export const ScrapThreadItem: React.FC<Props> = ({
+  scrap,
   setScrap,
   scrapId,
+  scrapThreadItems,
   scrapThreadItem,
   setScrapThreadItems,
 }) => {
@@ -56,6 +62,26 @@ export const ScrapThreadItem: React.FC<Props> = ({
     }
   };
 
+  const handleUp = async () => {
+    try {
+      await moveUpScrapThreadItem(scrapId as string, scrapThreadItem.id);
+      const newScrapThreadItems = await getScrapThreadItems(scrapId as string);
+      setScrapThreadItems(newScrapThreadItems);
+    } catch (error) {
+      console.error("並び替えおよびデータ取得に失敗しました:", error);
+    }
+  };
+
+  const handleDown = async () => {
+    try {
+      await moveDownScrapThreadItem(scrapId as string, scrapThreadItem.id);
+      const newScrapThreadItems = await getScrapThreadItems(scrapId as string);
+      setScrapThreadItems(newScrapThreadItems);
+    } catch (error) {
+      console.error("並び替えおよびデータ取得に失敗しました:", error);
+    }
+  };
+
   return (
     <Box as="article" p="1rem 1.3rem" bg="white">
       <Box display="flex">
@@ -74,7 +100,6 @@ export const ScrapThreadItem: React.FC<Props> = ({
           >
             <BiPencil />
           </Box>
-
           <Box
             as="button"
             onClick={handleDelete}
@@ -87,19 +112,57 @@ export const ScrapThreadItem: React.FC<Props> = ({
           </Box>
         </Box>
       </Box>
-      {!isEdit ? (
-        <Box mt="0.8rem" lineHeight="1.7" whiteSpace="pre-line">
-          {scrapThreadItem.content}
+      <Box mt="0.8rem" display="flex">
+        <Box flex="1">
+          {!isEdit ? (
+            <Box lineHeight="1.7" whiteSpace="pre-line">
+              {scrapThreadItem.content}
+            </Box>
+          ) : (
+            <UpdateScrapThreadItemForm
+              scrapId={scrapId}
+              scrapThreadItem={scrapThreadItem}
+              isEdit={isEdit}
+              setIsEdit={setIsEdit}
+              setScrapThreadItems={setScrapThreadItems}
+            />
+          )}
         </Box>
-      ) : (
-        <UpdateScrapThreadItemForm
-          scrapId={scrapId}
-          scrapThreadItem={scrapThreadItem}
-          isEdit={isEdit}
-          setIsEdit={setIsEdit}
-          setScrapThreadItems={setScrapThreadItems}
-        />
-      )}
+        <Box mt="1" display="flex" flexDirection="column">
+          {scrapThreadItem.order !== 1 ? (
+            <Box
+              as="button"
+              onClick={handleUp}
+              p="2"
+              borderRadius="50%"
+              color="gray.700"
+              _hover={{
+                background: "gray.100",
+              }}
+            >
+              <FaChevronUp />
+            </Box>
+          ) : (
+            <Box pt="32px"></Box>
+          )}
+          {scrapThreadItem.order !== scrapThreadItems.length ? (
+            <Box
+              as="button"
+              onClick={handleDown}
+              p="2"
+              borderRadius="50%"
+              color="gray.700"
+              _hover={{
+                background: "gray.100",
+              }}
+            >
+              <FaChevronDown />
+            </Box>
+          ) : (
+            <Box pt="32px"></Box>
+          )}
+        </Box>
+      </Box>
     </Box>
   );
 };
