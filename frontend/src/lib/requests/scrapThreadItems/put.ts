@@ -16,7 +16,7 @@ export const putScrapThreadItem = async (
 
   try {
     await axios.put(
-      `http://localhost:3001/scraps/${scrapId}/items/${scrapThreadItemId}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/scraps/${scrapId}/items/${scrapThreadItemId}`,
       postData,
       { headers }
     );

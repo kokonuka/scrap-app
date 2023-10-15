@@ -11,9 +11,13 @@ export const postScrapThreadItem = async (id: string, data: formInputs) => {
   };
 
   try {
-    await axios.post(`http://localhost:3001/scraps/${id}/items`, postData, {
-      headers,
-    });
+    await axios.post(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/scraps/${id}/items`,
+      postData,
+      {
+        headers,
+      }
+    );
     console.log("POST成功");
   } catch (error) {
     console.error("POSTエラー", error);

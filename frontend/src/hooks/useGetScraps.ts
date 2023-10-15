@@ -7,7 +7,7 @@ const useGetScraps = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/scraps")
+      .get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/scraps`)
       .then((response) => {
         setScraps(response.data);
       })

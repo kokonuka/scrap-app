@@ -12,7 +12,7 @@ const useGetScrap = (id: string | string[] | undefined) => {
   useEffect(() => {
     if (id) {
       axios
-        .get(`http://localhost:3001/scraps/${id}`)
+        .get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/scraps/${id}`)
         .then((response) => {
           setScrap(response.data);
           setScrapThreadItems(response.data.items);
