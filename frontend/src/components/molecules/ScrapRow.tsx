@@ -37,7 +37,7 @@ export const ScrapRow: React.FC<Props> = ({ scrap, setScraps }) => {
         <Box flex="1">
           <Link
             as={NextLink}
-            href={`http://localhost:3000/scraps/${scrap.id}`}
+            href={`/scraps/${scrap.id}`}
             color="#000000d1"
             fontSize="1.1rem"
             fontWeight="bold"
