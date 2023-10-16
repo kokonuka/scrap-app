@@ -130,6 +130,7 @@ export const ScrapThreadItem: React.FC<Props> = ({
             <Link
               as={NextLink}
               href={data.url}
+              target="_blank"
               height="120px"
               display="flex"
               alignItems="center"
