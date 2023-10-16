@@ -95,6 +95,27 @@ export const ScrapThreadItem: React.FC<Props> = ({
     }
   };
 
+  const extractHostname = (url: string) => {
+    var hostname;
+
+    // ホスト名を抽出するために、URLオブジェクトを使用します
+    var parser = document.createElement("a");
+    parser.href = url;
+
+    // ホスト名を取得します
+    hostname = parser.hostname;
+
+    return hostname;
+  };
+
+  const truncateString = (str: string, maxLength: number) => {
+    if (str.length <= maxLength) {
+      return str;
+    } else {
+      return str.slice(0, maxLength) + "...";
+    }
+  };
+
   const addLinksToText = async (text: string) => {
     // 文字内なら色をつけるだけ
     const regex = /(https?:\/\/[^\s]+)/g;
@@ -131,11 +152,12 @@ export const ScrapThreadItem: React.FC<Props> = ({
               as={NextLink}
               href={data.url}
               target="_blank"
-              height="120px"
+              height="118px"
               display="flex"
               alignItems="center"
               border="1px solid rgba(92,147,187,.2)"
               borderRadius="md"
+              overflow="hidden"
               _hover={{
                 background: "rgba(239,246,251,0.7)",
               }}
@@ -154,8 +176,10 @@ export const ScrapThreadItem: React.FC<Props> = ({
                   fontSize="0.8em"
                   color="#77838c"
                   lineHeight="1.5"
+                  display="flex"
+                  alignItems="center"
                 >
-                  {data.description}
+                  <Box as="span">{truncateString(data.description, 54)}</Box>
                 </Box>
                 <Box
                   mt="0.5em"
@@ -163,7 +187,7 @@ export const ScrapThreadItem: React.FC<Props> = ({
                   color="rgba(0,0,0,0.82)"
                   lineHeight="1.5"
                 >
-                  zenn.dev
+                  {extractHostname(data.url)}
                 </Box>
               </Box>
               <Box position="relative" w="120px" h="120px">
