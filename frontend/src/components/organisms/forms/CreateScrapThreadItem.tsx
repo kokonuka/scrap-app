@@ -65,6 +65,7 @@ export const CreateScrapThreadItemForm: React.FC<Props> = ({
       <FormControl isInvalid={Boolean(errors.comment)}>
         <Textarea
           placeholder="スラクップにコメントを追加"
+          rows={10}
           {...register("comment", {
             required: "必須項目です",
             minLength: { value: 1, message: "1文字以上入力してください" },
