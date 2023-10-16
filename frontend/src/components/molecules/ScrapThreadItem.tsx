@@ -108,11 +108,11 @@ export const ScrapThreadItem: React.FC<Props> = ({
   return (
     <Box as="article" p="1rem 1.3rem" bg="white" display="flex">
       <Box flex="1">
-        <Box display="flex">
+        <Box display="flex" gap="3">
           <Box flex="1" fontSize="12px" color="#8f9faa">
             {formatDate(scrapThreadItem.updatedAt)}
           </Box>
-          <Box display="flex" gap="3">
+          <Box display="flex" gap="5">
             <Box
               as="button"
               onClick={handleEdit}
@@ -135,6 +135,18 @@ export const ScrapThreadItem: React.FC<Props> = ({
               <FaTrash />
             </Box>
           </Box>
+          <Box display="flex">
+            {scrapThreadItem.order !== 1 ? (
+              <UpButton handler={handleUp} isDisabled={false} />
+            ) : (
+              <UpButton handler={handleUp} isDisabled={true} />
+            )}
+            {scrapThreadItem.order !== scrapThreadItems.length ? (
+              <DownButton handler={handleDown} isDisabled={false} />
+            ) : (
+              <DownButton handler={handleDown} isDisabled={true} />
+            )}
+          </Box>
         </Box>
         <Box mt="0.8rem">
           {!isEdit ? (
@@ -153,18 +165,6 @@ export const ScrapThreadItem: React.FC<Props> = ({
             />
           )}
         </Box>
-      </Box>
-      <Box pl="1rem" display="flex" flexDirection="column">
-        {scrapThreadItem.order !== 1 ? (
-          <UpButton handler={handleUp} isDisabled={false} />
-        ) : (
-          <UpButton handler={handleUp} isDisabled={true} />
-        )}
-        {scrapThreadItem.order !== scrapThreadItems.length ? (
-          <DownButton handler={handleDown} isDisabled={false} />
-        ) : (
-          <DownButton handler={handleDown} isDisabled={true} />
-        )}
       </Box>
     </Box>
   );
