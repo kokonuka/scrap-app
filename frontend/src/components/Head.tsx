@@ -18,6 +18,8 @@ export const Head: React.FC = () => {
       <meta property="og:site_name" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content="/boxes.png" />
+      <meta property="og:url" content="https://scrap-app.vercel.app/" />
+      <meta property="og:type" content="website" />
       <link rel="manifest" href="/manifest.webmanifest"></link>
     </NextHead>
   );
