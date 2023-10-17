@@ -26,8 +26,8 @@ export const CreateScrapForm: React.FC = () => {
     try {
       await postScrap(data);
       const scraps = await getScraps();
-      const lastScrap = scraps[scraps.length - 1];
-      router.push(`/scraps/${lastScrap.id}`);
+      const firstScrap = scraps[0];
+      router.push(`/scraps/${firstScrap.id}`);
     } catch (error) {
       console.error("スクラップの作成に失敗しました:", error);
     }

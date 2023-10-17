@@ -18,7 +18,12 @@ export const ScrapRows: React.FC = () => {
               bg="white"
             >
               {scraps.map((scrap) => (
-                <ScrapRow scrap={scrap} setScraps={setScraps} key={scrap.id} />
+                <ScrapRow
+                  setScraps={setScraps}
+                  scrapId={scrap.id}
+                  isLoading={isLoading}
+                  key={scrap.id}
+                />
               ))}
             </Box>
           )}

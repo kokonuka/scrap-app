@@ -18,7 +18,7 @@ export default function ScrapPage() {
     <>
       <Head />
       <ScrapThreadLayout>
-        <ScrapHeader scrap={scrap} setScrap={setScrap} />
+        <ScrapHeader scrap={scrap} setScrap={setScrap} isLoading={isLoading} />
         <ScrapThread
           scrap={scrap}
           setScrap={setScrap}
