@@ -71,7 +71,7 @@ export class ScrapGateway {
         ":scrap": "scrap",
       },
       ScanIndexForward: false, // 昇順にソート
-      Limit: 10,
+      // Limit: 10, ページネーションができるまでの暫定処理
     };
 
     const command = new QueryCommand(params);
