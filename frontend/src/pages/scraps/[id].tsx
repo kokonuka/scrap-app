@@ -11,7 +11,7 @@ import { ScrapHeader } from "@/components/organisms/ScrapHeader";
 export default function ScrapPage() {
   const router = useRouter();
   const { id } = router.query;
-  const { scrap, setScrap, scrapThreadItems, setScrapThreadItems } =
+  const { scrap, setScrap, scrapThreadItems, setScrapThreadItems, isLoading } =
     useGetScrap(id);
 
   return (
@@ -25,6 +25,7 @@ export default function ScrapPage() {
           scrapId={id}
           scrapThreadItems={scrapThreadItems}
           setScrapThreadItems={setScrapThreadItems}
+          isLoading={isLoading}
         />
         <Box mt="5">
           <CreateScrapThreadItemForm

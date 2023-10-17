@@ -8,6 +8,7 @@ const useGetScrap = (id: string | string[] | undefined) => {
   const [scrapThreadItems, setScrapThreadItems] = useState<ScrapThreadItem[]>(
     []
   );
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     if (id) {
@@ -16,6 +17,7 @@ const useGetScrap = (id: string | string[] | undefined) => {
         .then((response) => {
           setScrap(response.data);
           setScrapThreadItems(response.data.items);
+          setIsLoading(false);
         })
         .catch((error) => {
           console.error("データの取得に失敗しました:", error);
@@ -23,7 +25,7 @@ const useGetScrap = (id: string | string[] | undefined) => {
     }
   }, [id]);
 
-  return { scrap, setScrap, scrapThreadItems, setScrapThreadItems };
+  return { scrap, setScrap, scrapThreadItems, setScrapThreadItems, isLoading };
 };
 
 export default useGetScrap;

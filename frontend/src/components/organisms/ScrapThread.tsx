@@ -1,7 +1,8 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Spinner } from "@chakra-ui/react";
 import { ScrapThreadItem } from "../molecules/ScrapThreadItem";
 import { Scrap } from "../molecules/ScrapRow";
 import { Dispatch, SetStateAction } from "react";
+import { AiFillEdit } from "react-icons/ai";
 
 type Props = {
   scrap: Scrap | null;
@@ -9,6 +10,7 @@ type Props = {
   scrapId: string | string[] | undefined;
   scrapThreadItems: ScrapThreadItem[];
   setScrapThreadItems: React.Dispatch<React.SetStateAction<ScrapThreadItem[]>>;
+  isLoading: boolean;
 };
 
 export const ScrapThread: React.FC<Props> = ({
@@ -17,22 +19,45 @@ export const ScrapThread: React.FC<Props> = ({
   scrapId,
   scrapThreadItems,
   setScrapThreadItems,
+  isLoading,
 }) => {
   return (
     <Box mt="1.5rem" display="flex" flexDirection="column" gap="5">
-      {scrapThreadItems
-        ? scrapThreadItems.map((scrapThreadItem) => (
-            <ScrapThreadItem
-              scrap={scrap}
-              setScrap={setScrap}
-              scrapId={scrapId}
-              scrapThreadItems={scrapThreadItems}
-              scrapThreadItem={scrapThreadItem}
-              setScrapThreadItems={setScrapThreadItems}
-              key={scrapThreadItem.id}
-            />
-          ))
-        : null}
+      {!isLoading ? (
+        <>
+          {scrapThreadItems.length > 0 ? (
+            scrapThreadItems.map((scrapThreadItem) => (
+              <ScrapThreadItem
+                scrap={scrap}
+                setScrap={setScrap}
+                scrapId={scrapId}
+                scrapThreadItems={scrapThreadItems}
+                scrapThreadItem={scrapThreadItem}
+                setScrapThreadItems={setScrapThreadItems}
+                key={scrapThreadItem.id}
+              />
+            ))
+          ) : (
+            <Box
+              p="2rem 0"
+              bg="white"
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              color="#8f9faa"
+            >
+              <Box fontWeight="bold">最初のコメントを追加しましょう</Box>
+              <Box mt="1rem" fontSize="5xl">
+                <AiFillEdit />
+              </Box>
+            </Box>
+          )}
+        </>
+      ) : (
+        <Box display="flex" justifyContent="center">
+          <Spinner />
+        </Box>
+      )}
     </Box>
   );
 };
