@@ -44,7 +44,7 @@ export const ScrapHeader: React.FC<Props> = ({
             <Box
               as="h1"
               color="#000000d1"
-              fontSize="1.7rem"
+              fontSize={{ base: "lg", md: "1.7rem" }}
               fontWeight="bold"
               lineHeight="1.5"
             >
