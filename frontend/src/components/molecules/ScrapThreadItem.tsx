@@ -150,10 +150,8 @@ export const ScrapThreadItem: React.FC<Props> = ({
         </Box>
         <Box mt="0.8rem">
           {!isEdit ? (
-            <Box display="flex">
-              <Box flex="1" whiteSpace="pre-line" lineHeight="1.7">
-                {content}
-              </Box>
+            <Box whiteSpace="pre-line" wordBreak="break-all" lineHeight="1.7">
+              {content}
             </Box>
           ) : (
             <UpdateScrapThreadItemForm
