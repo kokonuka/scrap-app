@@ -40,7 +40,7 @@ scrapItemRouter.post("/", async (req, res) => {
       return res.status(400).json({ message: "scrap not found" });
     }
 
-    let order = 0;
+    let order = 1;
     if (scrap.items.length > 0) {
       const lastItem = scrap.items[scrap.items.length - 1];
       order = lastItem.order + 1;
