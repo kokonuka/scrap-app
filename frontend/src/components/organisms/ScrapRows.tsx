@@ -21,7 +21,6 @@ export const ScrapRows: React.FC = () => {
                 <ScrapRow
                   setScraps={setScraps}
                   scrapId={scrap.id}
-                  isLoading={isLoading}
                   key={scrap.id}
                 />
               ))}
