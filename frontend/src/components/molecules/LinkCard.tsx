@@ -19,7 +19,6 @@ export const LinkCard: React.FC<Props> = ({ data }) => {
       border="1px solid rgba(92,147,187,.2)"
       borderRadius="md"
       overflow="hidden"
-      whiteSpace="normal"
       _hover={{
         background: "rgba(239,246,251,0.7)",
       }}
