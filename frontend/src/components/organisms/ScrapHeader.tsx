@@ -24,7 +24,7 @@ export const ScrapHeader: React.FC<Props> = ({
   };
 
   return (
-    <Box>
+    <Box p={{ base: "1rem", md: "0" }}>
       <Box fontSize="13px" color="#65717b" lineHeight="1.4" display="flex">
         {scrap ? (
           <>
