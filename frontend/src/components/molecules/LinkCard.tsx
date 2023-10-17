@@ -1,7 +1,7 @@
 import NextLink from "next/link";
 import NextImage from "next/image";
 import { Box, Link } from "@chakra-ui/react";
-import { extractHostname, truncateString } from "@/lib/textUtil";
+import { extractHostname } from "@/lib/textUtil";
 
 type Props = {
   data: any;
@@ -29,6 +29,12 @@ export const LinkCard: React.FC<Props> = ({ data }) => {
           color="rgba(0,0,0,0.82)"
           fontWeight="bold"
           lineHeight="1.5"
+          overflow={{ base: "hidden", md: "" }}
+          display={{ base: "-webkit-box", md: "" }}
+          sx={{
+            ["WebkitBoxOrient" as any]: "vertical",
+            ["WebkitLineClamp" as any]: 2,
+          }}
         >
           {data.title}
         </Box>
@@ -37,10 +43,15 @@ export const LinkCard: React.FC<Props> = ({ data }) => {
           fontSize="0.8em"
           color="#77838c"
           lineHeight="1.5"
-          display="flex"
           alignItems="center"
+          overflow={{ base: "hidden", md: "" }}
+          display={{ base: "-webkit-box", md: "" }}
+          sx={{
+            ["WebkitBoxOrient" as any]: "vertical",
+            ["WebkitLineClamp" as any]: { base: 1, md: 2 },
+          }}
         >
-          <Box as="span">{truncateString(data.description, 50)}</Box>
+          <Box as="span">{data.description}</Box>
         </Box>
         <Box
           mt="0.5em"
