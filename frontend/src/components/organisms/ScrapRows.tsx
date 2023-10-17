@@ -7,12 +7,14 @@ export const ScrapRows: React.FC = () => {
   const { scraps, setScraps } = useGetScraps();
 
   return (
-    <Box border="1px" borderRadius="md" borderColor="#e4edf4" bg="white">
-      {scraps
-        ? scraps.map((scrap) => (
+    <>
+      {scraps.length > 0 && (
+        <Box border="1px" borderRadius="md" borderColor="#e4edf4" bg="white">
+          {scraps.map((scrap) => (
             <ScrapRow scrap={scrap} setScraps={setScraps} key={scrap.id} />
-          ))
-        : null}
-    </Box>
+          ))}
+        </Box>
+      )}
+    </>
   );
 };
