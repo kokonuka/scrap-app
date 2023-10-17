@@ -106,7 +106,12 @@ export const ScrapThreadItem: React.FC<Props> = ({
   };
 
   return (
-    <Box as="article" p="1rem 1.3rem" bg="white" display="flex">
+    <Box
+      as="article"
+      p={{ base: "0.8rem", md: "1rem 1.3rem" }}
+      bg="white"
+      display="flex"
+    >
       <Box flex="1">
         <Box display="flex" gap="3">
           <Box flex="1" fontSize="12px" color="#8f9faa">
@@ -150,7 +155,12 @@ export const ScrapThreadItem: React.FC<Props> = ({
         </Box>
         <Box mt="0.8rem">
           {!isEdit ? (
-            <Box whiteSpace="pre-line" wordBreak="break-all" lineHeight="1.7">
+            <Box
+              fontSize={{ base: "14px", md: "16px" }}
+              lineHeight="1.7"
+              whiteSpace="pre-line"
+              wordBreak="break-all"
+            >
               {content}
             </Box>
           ) : (

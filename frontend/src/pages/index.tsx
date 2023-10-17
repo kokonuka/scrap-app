@@ -13,7 +13,7 @@ export default function Home() {
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Box
             as="h1"
-            fontSize="2rem"
+            fontSize={{ base: "xl", md: "2rem" }}
             fontWeight="bold"
             color="000000d1"
             lineHeight="1.5"
