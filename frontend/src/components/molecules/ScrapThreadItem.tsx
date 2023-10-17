@@ -151,8 +151,8 @@ export const ScrapThreadItem: React.FC<Props> = ({
         <Box mt="0.8rem">
           {!isEdit ? (
             <Box display="flex">
-                {content}
               <Box flex="1" whiteSpace="pre-line" lineHeight="1.7">
+                {content}
               </Box>
             </Box>
           ) : (
