@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   Box,
@@ -6,9 +7,13 @@ import {
   FormErrorMessage,
   Textarea,
 } from "@chakra-ui/react";
-import { ScrapThreadItem } from "@/components/molecules/ScrapThreadItem";
+import parse from "html-react-parser";
+import markdownToHtml from "zenn-markdown-html";
+import "zenn-content-css";
 import { putScrapThreadItem } from "@/lib/requests/scrapThreadItems/put";
 import { getScrapThreadItems } from "@/lib/requests/scrapThreadItems/get";
+import { ScrapThreadItem } from "@/components/molecules/ScrapThreadItem";
+import { LinkCard } from "@/components/molecules/LinkCard";
 
 type formInputs = {
   comment: string;
@@ -34,13 +39,29 @@ export const UpdateScrapThreadItemForm: React.FC<Props> = ({
     register,
     formState: { errors, isSubmitting },
     reset,
+    getValues,
   } = useForm<formInputs>({
     defaultValues: { comment: scrapThreadItem.content },
   });
+  const replace = (node: any) => {
+    if (node.name === "a") {
+      return node.attribs.style ? <></> : <LinkCard url={node.attribs.href} />;
+    }
+  };
+
+  const [parsedHtml, setParsedHtml] = useState(
+    parse(markdownToHtml(scrapThreadItem.content), { replace })
+  );
 
   const handleCancel = () => {
     setIsEdit(!isEdit);
     reset();
+  };
+
+  const handleTextAreaChange = (e: any) => {
+    const commentValue = e.target.value;
+    const tmp = parse(markdownToHtml(commentValue), { replace });
+    setParsedHtml(tmp);
   };
 
   const onSubmit = handleSubmit(async (data) => {
@@ -64,11 +85,25 @@ export const UpdateScrapThreadItemForm: React.FC<Props> = ({
             required: "必須項目です",
             minLength: { value: 1, message: "1文字以上入力してください" },
           })}
+          onChange={handleTextAreaChange}
         />
         <FormErrorMessage>
           {errors.comment && errors.comment.message}
         </FormErrorMessage>
       </FormControl>
+      <Box borderBottom="1px" pb="5" borderColor="gray.100">
+        <Box mt="5" fontWeight="bold" fontSize="xs">
+          Markdown Preview
+        </Box>
+        <Box
+          className="znc"
+          mt="5"
+          fontSize={{ base: "14px", md: "16px" }}
+          lineHeight="1.7"
+        >
+          {parsedHtml}
+        </Box>
+      </Box>
       <Box pt="15px" display="flex" justifyContent="flex-end" gap="3">
         <Box
           as="button"

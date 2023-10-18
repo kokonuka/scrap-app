@@ -1,7 +1,10 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { Box } from "@chakra-ui/react";
 import { BiPencil } from "react-icons/bi";
 import { FaTrash } from "react-icons/fa";
+import markdownToHtml from "zenn-markdown-html";
+import parse from "html-react-parser";
+import "zenn-content-css";
 import { deleteScrapThreadItem } from "@/lib/requests/scrapThreadItems/delete";
 import { getScrapThreadItems } from "@/lib/requests/scrapThreadItems/get";
 import { formatDate } from "@/lib/dataUtil";
@@ -9,8 +12,7 @@ import { moveDownScrapThreadItem } from "@/lib/requests/scrapThreadItems/down";
 import { moveUpScrapThreadItem } from "@/lib/requests/scrapThreadItems/up";
 import { UpdateScrapThreadItemForm } from "../organisms/forms/UpdateScrapThreadItem";
 import { Scrap } from "./ScrapRow";
-import { createLinkCardFromURL } from "@/lib/createLinkCardFromURL";
-import { convertTextToLink } from "@/lib/convertTextToLink";
+import { LinkCard } from "./LinkCard";
 import { UpButton } from "../atoms/UpButton";
 import { DownButton } from "../atoms/DownButton";
 
@@ -44,25 +46,16 @@ export const ScrapThreadItem: React.FC<Props> = ({
   setScrapThreadItems,
 }) => {
   const [isEdit, setIsEdit] = useState(false);
-  const [content, setContent] = useState<(string | React.JSX.Element)[]>([
-    scrapThreadItem.content,
-  ]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const tmpContent = await convertTextToLink(scrapThreadItem.content);
-      setContent(tmpContent);
-    };
-    fetchData();
-  }, [scrapThreadItem]);
+  const replace = (node: any) => {
+    if (node.name === "a") {
+      return node.attribs.style ? <></> : <LinkCard url={node.attribs.href} />;
+    }
+  };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const tmpContent = await createLinkCardFromURL(scrapThreadItem.content);
-      setContent(tmpContent);
-    };
-    fetchData();
-  }, [scrapThreadItem]);
+  const content = scrapThreadItem.content;
+  const html = markdownToHtml(content);
+  const parsedHtml = parse(html, { replace });
 
   const handleEdit = () => {
     setIsEdit(!isEdit);
@@ -156,12 +149,11 @@ export const ScrapThreadItem: React.FC<Props> = ({
         <Box mt="0.8rem">
           {!isEdit ? (
             <Box
+              className="znc"
               fontSize={{ base: "14px", md: "16px" }}
               lineHeight="1.7"
-              whiteSpace="pre-line"
-              wordBreak="break-all"
             >
-              {content}
+              {parsedHtml}
             </Box>
           ) : (
             <UpdateScrapThreadItemForm
