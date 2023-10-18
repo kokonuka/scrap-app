@@ -113,16 +113,24 @@ export const LinkCard: React.FC<Props> = ({ url }) => {
       ) : (
         <Box
           as="span"
-          p="5"
           mt="1"
           height="118px"
           border="1px solid rgba(92,147,187,.2)"
           borderRadius="md"
           display="flex"
-          justifyContent="center"
-          alignItems="center"
+          overflow="hidden"
         >
-          <Skeleton as="span" w="100%" h="100%" />
+          <Box as="span" flex="1" p="0.8em 1.2em">
+            <Skeleton as="span" display="block" w="100%" h="40%" />
+            <Skeleton as="span" display="block" mt="3" w="100%" h="15%" />
+          </Box>
+          <Skeleton
+            as="span"
+            display="block"
+            w="118px"
+            h="118px"
+            borderRadius="none"
+          />
         </Box>
       )}
     </>
