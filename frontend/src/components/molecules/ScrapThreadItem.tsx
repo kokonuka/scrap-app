@@ -49,12 +49,15 @@ export const ScrapThreadItem: React.FC<Props> = ({
 
   const replace = (node: any) => {
     if (node.name === "a") {
-      return node.attribs.style ? <></> : <LinkCard url={node.attribs.href} />;
+      if (node.attribs.class === "header-anchor-link") return;
+      if (node.attribs.style) return;
+      return <LinkCard url={node.attribs.href} />;
     }
   };
 
   const content = scrapThreadItem.content;
   const html = markdownToHtml(content);
+  // console.log(html);
   const parsedHtml = parse(html, { replace });
 
   const handleEdit = () => {
@@ -99,12 +102,7 @@ export const ScrapThreadItem: React.FC<Props> = ({
   };
 
   return (
-    <Box
-      as="article"
-      p={{ base: "0.8rem", md: "1rem 1.3rem" }}
-      bg="white"
-      display="flex"
-    >
+    <Box as="article" p={{ base: "0.8rem", md: "1rem 1.3rem" }} bg="white">
       <Box flex="1">
         <Box display="flex" gap="3">
           <Box flex="1" fontSize="12px" color="#8f9faa">

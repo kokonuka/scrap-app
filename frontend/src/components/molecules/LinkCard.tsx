@@ -29,7 +29,6 @@ export const LinkCard: React.FC<Props> = ({ url }) => {
         setData(data);
       } catch (error) {
         console.error("データの取得に失敗しました:", error);
-        throw error;
       }
     };
     fetchData();
@@ -57,8 +56,9 @@ export const LinkCard: React.FC<Props> = ({ url }) => {
             textDecoration: "none !important",
           }}
         >
-          <Box flex="1" p="0.8em 1.2em">
+          <Box as="span" flex="1" p="0.8em 1.2em">
             <Box
+              as="span"
               fontSize="1em"
               color="rgba(0,0,0,0.82)"
               fontWeight="bold"
@@ -73,6 +73,7 @@ export const LinkCard: React.FC<Props> = ({ url }) => {
               {data.title}
             </Box>
             <Box
+              as="span"
               mt="0.5em"
               fontSize="0.8em"
               color="#77838c"
@@ -88,6 +89,7 @@ export const LinkCard: React.FC<Props> = ({ url }) => {
               <Box as="span">{data.description}</Box>
             </Box>
             <Box
+              as="span"
               mt="0.5em"
               fontSize="0.8em"
               color="rgba(0,0,0,0.82)"
@@ -96,19 +98,21 @@ export const LinkCard: React.FC<Props> = ({ url }) => {
               {extractHostname(data.url)}
             </Box>
           </Box>
-          <Box position="relative" w="120px" h="120px">
+          <Box as="span" position="relative" w="120px" h="120px">
             <NextImage
               src={data.image}
               alt="article"
               fill
               style={{
                 objectFit: "cover",
+                margin: "0",
               }}
             />
           </Box>
         </Link>
       ) : (
         <Box
+          as="span"
           p="5"
           mt="1"
           height="118px"
@@ -118,7 +122,7 @@ export const LinkCard: React.FC<Props> = ({ url }) => {
           justifyContent="center"
           alignItems="center"
         >
-          <Skeleton w="100%" h="100%" />
+          <Skeleton as="span" w="100%" h="100%" />
         </Box>
       )}
     </>
