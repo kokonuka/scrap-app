@@ -34,15 +34,6 @@ export const UpdateScrapThreadItemForm: React.FC<Props> = ({
   setIsEdit,
   setScrapThreadItems,
 }) => {
-  const {
-    handleSubmit,
-    register,
-    formState: { errors, isSubmitting },
-    reset,
-    getValues,
-  } = useForm<formInputs>({
-    defaultValues: { comment: scrapThreadItem.content },
-  });
   const replace = (node: any) => {
     if (node.name === "a") {
       return node.attribs.style ? <></> : <LinkCard url={node.attribs.href} />;
@@ -52,6 +43,16 @@ export const UpdateScrapThreadItemForm: React.FC<Props> = ({
   const [parsedHtml, setParsedHtml] = useState(
     parse(markdownToHtml(scrapThreadItem.content), { replace })
   );
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitting },
+    reset,
+    getValues,
+  } = useForm<formInputs>({
+    defaultValues: { comment: scrapThreadItem.content },
+  });
 
   const handleCancel = () => {
     setIsEdit(!isEdit);
