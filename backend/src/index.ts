@@ -7,7 +7,7 @@ import { scrapItemRouter } from "./presentation/scrapItemRouter";
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 
-const port = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3001;
 
 const app: Express = express();
 app.use(cors());
