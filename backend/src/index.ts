@@ -71,4 +71,4 @@ scrapRouter.use("/:scrapId/items", scrapItemRouter);
 
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
 
-export const handler = serverlessExpress({ app });
+// export const handler = serverlessExpress({ app });
