@@ -8,7 +8,7 @@ type Props = {
 
 export const FormLayout: React.FC<Props> = ({ children }) => {
   return (
-    <Box as="main" minH="100vh">
+    <Box as="main" minH="100vh" bg="white">
       <Header />
       <Container maxW="440px">
         <Box p="4rem 0 4.5rem">{children}</Box>
