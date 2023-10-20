@@ -87,6 +87,11 @@ export const UpdateScrapThreadItemForm: React.FC<Props> = ({
             minLength: { value: 1, message: "1文字以上入力してください" },
           })}
           onChange={handleTextAreaChange}
+          borderTop="none"
+          borderRight="none"
+          borderLeft="none"
+          borderRadius="none"
+          _focusVisible={{ boxShadow: "none" }}
         />
         <FormErrorMessage>
           {errors.comment && errors.comment.message}
