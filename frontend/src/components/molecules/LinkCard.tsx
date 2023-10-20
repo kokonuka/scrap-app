@@ -83,7 +83,7 @@ export const LinkCard: React.FC<Props> = ({ url }) => {
               display={{ base: "-webkit-box", md: "" }}
               sx={{
                 ["WebkitBoxOrient" as any]: "vertical",
-                ["WebkitLineClamp" as any]: { base: 1, md: 2 },
+                ["WebkitLineClamp" as any]: { base: 1, md: 1 },
               }}
             >
               <Box as="span">{data.description}</Box>
