@@ -36,7 +36,7 @@ export const ScrapRow: React.FC<Props> = ({ setScraps, scrapId }) => {
       .catch((error) => {
         console.error("データの取得に失敗しました:", error);
       });
-  }, []);
+  }, [scrapId]);
 
   const handleDelete = async () => {
     try {
