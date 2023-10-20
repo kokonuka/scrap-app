@@ -5,6 +5,7 @@ import {
   Button,
   FormControl,
   FormErrorMessage,
+  Input,
   Textarea,
 } from "@chakra-ui/react";
 import { postScrap } from "@/lib/requests/postScrap";
@@ -36,12 +37,14 @@ export const CreateScrapForm: React.FC = () => {
   return (
     <form onSubmit={onSubmit}>
       <FormControl isInvalid={Boolean(errors.title)}>
-        <Textarea
+        <Input
           placeholder="タイトル"
           {...register("title", {
             required: "必須項目です",
             minLength: { value: 1, message: "1文字以上入力してください" },
           })}
+          height="72px"
+          background="#f5f9fc"
         />
         <FormErrorMessage>
           {errors.title && errors.title.message}
