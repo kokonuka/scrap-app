@@ -68,6 +68,7 @@ export const CreateScrapThreadItemForm: React.FC<Props> = ({
       });
       setScrapThreadItems(newScrapThreadItems);
       reset();
+      setParsedHtml("");
     } catch (error) {
       console.error("編集およびデータ取得に失敗しました:", error);
     }
