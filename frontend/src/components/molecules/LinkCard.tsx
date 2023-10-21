@@ -24,7 +24,7 @@ export const LinkCard: React.FC<Props> = ({ url }) => {
       try {
         const startTime = performance.now();
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/prod/ogp?url=${url}`
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/ogp?url=${url}`
           // `https://nl6rqyqn8d.execute-api.ap-northeast-1.amazonaws.com/prod/ogp?url=${url}`
           // `https://scrap-app.onrender.com/ogp?url=${url}`
         );
