@@ -40,9 +40,6 @@ export const LinkCard: React.FC<Props> = ({ url }) => {
 
   return (
     <>
-      <a href={url} target="_blank">
-        {url}
-      </a>
       {data ? (
         <Link
           as={NextLink}
