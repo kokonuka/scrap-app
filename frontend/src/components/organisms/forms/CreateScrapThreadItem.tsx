@@ -41,7 +41,9 @@ export const CreateScrapThreadItemForm: React.FC<Props> = ({
 
   const replace = (node: any) => {
     if (node.name === "a") {
-      return node.attribs.style ? <></> : <LinkCard url={node.attribs.href} />;
+      if (node.attribs.class === "header-anchor-link") return;
+      if (node.attribs.style) return;
+      return <LinkCard url={node.attribs.href} />;
     }
   };
 
