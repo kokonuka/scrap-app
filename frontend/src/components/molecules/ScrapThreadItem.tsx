@@ -57,7 +57,6 @@ export const ScrapThreadItem: React.FC<Props> = ({
 
   const content = scrapThreadItem.content;
   const html = markdownToHtml(content);
-  // console.log(html);
   const parsedHtml = parse(html, { replace });
 
   const handleEdit = () => {
