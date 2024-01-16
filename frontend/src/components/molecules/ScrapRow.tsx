@@ -20,6 +20,7 @@ export type Scrap = {
   updatedAt: string;
   scrap: string;
   items: ScrapThreadItem[];
+  isOpen: boolean;
 };
 
 export const ScrapRow: React.FC<Props> = ({ setScraps, scrapId }) => {
@@ -82,7 +83,34 @@ export const ScrapRow: React.FC<Props> = ({ setScraps, scrapId }) => {
                 </Box>
               </Box>
             </Box>
-            <Box mt="0.5em" display="flex" gap="0.7rem">
+            <Box mt="0.5em" display="flex" alignItems="center" gap="0.7rem">
+              <Box>
+                {scrap.isOpen ? (
+                  <Box
+                    bg="green.500"
+                    borderRadius="3xl"
+                    color="white"
+                    fontWeight="bold"
+                    px="3"
+                    py="1"
+                    fontSize="xs"
+                  >
+                    Open
+                  </Box>
+                ) : (
+                  <Box
+                    bg="purple.600"
+                    borderRadius="3xl"
+                    color="white"
+                    fontWeight="bold"
+                    px="3"
+                    py="1"
+                    fontSize="xs"
+                  >
+                    Closed
+                  </Box>
+                )}
+              </Box>
               <Box color="#65717b" fontSize="0.78rem" lineHeight="1.6">
                 {formatDate(scrap.updatedAt)}
               </Box>
