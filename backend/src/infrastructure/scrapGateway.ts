@@ -121,16 +121,18 @@ export class ScrapGateway {
     return response;
   }
 
-  async update(id: string, title: string) {
+  async update(item: Record<string, any>) {
     const params: UpdateCommandInput = {
       TableName: TABLE_NAME,
-      Key: { id: id },
-      UpdateExpression: "SET #title = :newTitle",
+      Key: { id: item.id },
+      UpdateExpression: "SET #title = :newTitle, #isOpen = :newIsOpen",
       ExpressionAttributeNames: {
         "#title": "title",
+        "#isOpen": "isOpen",
       },
       ExpressionAttributeValues: {
-        ":newTitle": title,
+        ":newTitle": item.title,
+        ":newIsOpen": item.isOpen,
       },
     };
 

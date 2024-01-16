@@ -86,10 +86,19 @@ scrapRouter.post("/", async (req, res) => {
 
 scrapRouter.put("/:id", async (req, res) => {
   const { id } = req.params;
-  const { title } = req.body;
+  const { title, isOpen } = req.body as {
+    title: string | undefined;
+    isOpen: string | undefined;
+  };
 
   try {
-    const response = await scrapGateway.update(id, title);
+    const item = await scrapGateway.findForScrapId(id);
+    if (!item) return res.status(400).json({ message: "scrap not found" });
+
+    item.title = title ? title : item.title;
+    item.isOpen = isOpen ? isOpen : item.isOpen;
+
+    const response = await scrapGateway.update(item);
 
     return res.status(200).json(response);
   } catch (err) {
