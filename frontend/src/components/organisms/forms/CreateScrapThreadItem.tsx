@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import {
@@ -7,6 +7,9 @@ import {
   FormControl,
   FormErrorMessage,
   Textarea,
+  useToast,
+  ToastId,
+  UseToastOptions,
 } from "@chakra-ui/react";
 import parse from "html-react-parser";
 import markdownToHtml from "zenn-markdown-html";
@@ -31,6 +34,26 @@ export const CreateScrapThreadItemForm: React.FC<Props> = ({
 }) => {
   const router = useRouter();
   const { id } = router.query;
+
+  const toast = useToast();
+  const toastId = "test-toast";
+  const toastIdRef = useRef<ToastId>();
+
+  const toastOption: UseToastOptions = {
+    id: toastId,
+    title: "Scrap Item created.",
+    description: "We've created your scrap item for you.",
+    status: "success",
+    duration: 9000,
+    isClosable: true,
+    position: "bottom-left",
+  };
+
+  function addToast() {
+    if (!toast.isActive(toastId)) {
+      toastIdRef.current = toast(toastOption);
+    }
+  }
 
   const {
     handleSubmit,
@@ -69,6 +92,7 @@ export const CreateScrapThreadItemForm: React.FC<Props> = ({
         };
       });
       setScrapThreadItems(newScrapThreadItems);
+      addToast();
       reset();
       setParsedHtml("");
     } catch (error) {
