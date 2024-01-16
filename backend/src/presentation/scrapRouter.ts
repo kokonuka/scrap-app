@@ -103,6 +103,9 @@ scrapRouter.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
+    const item = await scrapGateway.findForScrapId(id);
+    if (!item) return res.status(400).json({ message: "scrap not found" });
+
     const response = await scrapGateway.delete(id);
 
     return res.status(200).json(response);
