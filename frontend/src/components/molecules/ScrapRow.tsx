@@ -41,9 +41,13 @@ export const ScrapRow: React.FC<Props> = ({ setScraps, scrapId }) => {
 
   const handleDelete = async () => {
     try {
-      await deleteScrap(scrapId);
-      const newScraps = await getScraps();
-      setScraps(newScraps);
+      window.confirm("本当に削除しますか？");
+      const isConfirmed = window.confirm("本当に削除しますか？");
+      if (isConfirmed) {
+        await deleteScrap(scrapId);
+        const newScraps = await getScraps();
+        setScraps(newScraps);
+      }
     } catch (error) {
       console.error("削除およびデータ取得に失敗しました:", error);
     }
