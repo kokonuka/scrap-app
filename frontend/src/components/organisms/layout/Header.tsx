@@ -13,7 +13,7 @@ import {
   PopoverTrigger,
 } from "@chakra-ui/react";
 import { FaBoxes, FaRegQuestionCircle } from "react-icons/fa";
-import AuthButton from "@/components/atoms/AuthButton";
+import AuthHeader from "@/components/organisms/auth/AuthHeader";
 
 type Props = {};
 
@@ -132,7 +132,7 @@ export const Header: React.FC<Props> = () => {
               </PopoverContent>
             </Popover>
           </Box>
-          <AuthButton />
+          <AuthHeader />
         </Box>
       </Container>
     </Box>
