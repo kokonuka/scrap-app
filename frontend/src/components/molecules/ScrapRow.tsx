@@ -41,7 +41,6 @@ export const ScrapRow: React.FC<Props> = ({ setScraps, scrapId }) => {
 
   const handleDelete = async () => {
     try {
-      window.confirm("本当に削除しますか？");
       const isConfirmed = window.confirm("本当に削除しますか？");
       if (isConfirmed) {
         await deleteScrap(scrapId);
