@@ -4,8 +4,6 @@ import serverlessExpress from "@vendia/serverless-express";
 import cors from "cors";
 import { scrapRouter } from "./presentation/scrapRouter";
 import { scrapItemRouter } from "./presentation/scrapItemRouter";
-const jsdom = require("jsdom");
-const { JSDOM } = jsdom;
 
 const PORT = 3001;
 
