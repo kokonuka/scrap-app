@@ -101,12 +101,14 @@ export class ScrapGateway {
 
   async create(title: string) {
     const uniqueId = uuidv4();
+    const isOpen = true;
 
     const params: PutCommandInput = {
       TableName: TABLE_NAME,
       Item: {
         id: uniqueId,
-        title: title,
+        title,
+        isOpen,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         scrap: "scrap",

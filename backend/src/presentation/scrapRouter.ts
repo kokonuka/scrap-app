@@ -96,7 +96,7 @@ scrapRouter.put("/:id", async (req, res) => {
     if (!item) return res.status(400).json({ message: "scrap not found" });
 
     item.title = title ? title : item.title;
-    item.isOpen = isOpen ? isOpen : item.isOpen;
+    item.isOpen = isOpen ? isOpen : item.isOpen || true;
 
     const response = await scrapGateway.update(item);
 
